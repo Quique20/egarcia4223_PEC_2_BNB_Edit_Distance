@@ -1,15 +1,14 @@
 package Classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Node{
+public class Node implements Comparable<Node>{
     // Variables básicas
     private int i; // Posición actual en la cadena X
     private int j; // Posición actual en la cadena Y
-    private String cadenaActual; // cadena actual tras las transformaciones
-    private int longitud; // longitud actual
 
-    // Variables de coste (por definir ecuación óptima de la cota)
+    // Variables de coste 
     private int costeT; // Coste total actual
     private int estOpt; // Coste de estimación optimista
 
@@ -17,16 +16,15 @@ public class Node{
     private List<String> historialTransf;
 
     // Constructor base con todo
-    public Node(int i, int j, String cadenaActual, int longitud, int costeT, int estOpt, List<String> historialTransf) {
+    public Node(int i, int j,  int costeT, int estOpt, List<String> historialTransf) {
         this.i = i;
         this.j = j;
-        this.cadenaActual = cadenaActual;
-        this.longitud = longitud;
         this.costeT = costeT;
         this.estOpt = estOpt;
-        this.historialTransf = historialTransf;
+        this.historialTransf = new ArrayList<String>();
     }
 
+    @Override 
     public int compareTo(Node otro){
         if(this.estOpt != otro.estOpt){
             return Integer.compare(this.estOpt, otro.estOpt);
@@ -34,6 +32,20 @@ public class Node{
         // En el caso que ambas estimaciones sean iguales
         // se devuelve el que tenga un menor coste total acumulado
         return Integer.compare(this.costeT, otro.costeT);
+    }
+
+    // Método para calcular la estimación optimista 
+    public static int calcularEstOpt(int longX, int longY, int costeT, int cb, int ci){
+        int estimacion = 0;
+        // Si la cadena X es menor deberemos insertar si o si aunque todas coincidan
+        if(longX < longY){
+            estimacion = costeT + ci * (longY - longX);
+        // Si la cadena X es mayor o igual deberemos borrar (si es igual el borrado dará 0 por lo que el coste es irrelevante)
+        }else{
+            estimacion = costeT + cb * (longX - longY);
+        }
+
+        return estimacion;
     }
 
     public int getI() {
@@ -50,22 +62,6 @@ public class Node{
 
     public void setJ(int j) {
         this.j = j;
-    }
-
-    public String getCadenaActual() {
-        return cadenaActual;
-    }
-
-    public void setCadenaActual(String cadenaActual) {
-        this.cadenaActual = cadenaActual;
-    }
-
-    public int getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(int longitud) {
-        this.longitud = longitud;
     }
 
     public int getCosteT() {
@@ -90,6 +86,18 @@ public class Node{
 
     public void setHistorialTransf(List<String> historialTransf) {
         this.historialTransf = historialTransf;
+    }
+
+    public void addHistorialTransf(String operacion){
+        this.historialTransf.add(operacion);
+    }
+
+    public void removeHistorialTransf(String opeString){
+        for (String actual : historialTransf) {
+            if (opeString.equals(opeString)) {
+                this.historialTransf.remove(actual);
+            }
+        }
     }
 
 }
