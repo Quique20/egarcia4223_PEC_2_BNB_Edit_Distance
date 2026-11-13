@@ -21,7 +21,7 @@ public class Node implements Comparable<Node>{
         this.j = j;
         this.costeT = costeT;
         this.estOpt = estOpt;
-        this.historialTransf = new ArrayList<String>();
+        this.historialTransf = new ArrayList<String>(historialTransf);
     }
 
     @Override 
@@ -90,14 +90,6 @@ public class Node implements Comparable<Node>{
 
     public void addHistorialTransf(String operacion){
         this.historialTransf.add(operacion);
-    }
-
-    public void removeHistorialTransf(String opeString){
-        for (String actual : historialTransf) {
-            if (opeString.equals(opeString)) {
-                this.historialTransf.remove(actual);
-            }
-        }
     }
 
 }
