@@ -58,12 +58,12 @@ public class App {
             }else{
                 // Borrar
                 if(i < n){
-                    Node hijoBorrado = CrearHijo(actual, i + 1, j, actual.getCosteT() + cb, "Borrado", n, m, cb, ci);
+                    Node hijoBorrado = CrearHijo(actual, i + 1, j, actual.getCosteT() + cb, "Borrado " + X.charAt(i), n, m, cb, ci);
                     cotaGlobal = ProcesarHijo(hijoBorrado, n , m , monticulo, cotaGlobal, mejorSolucion);
                 }
                 // Insertar
                 if (j < m){
-                    Node hijoInsertado = CrearHijo(actual, i, j + 1, actual.getCosteT() + ci, "Insertado", n, m, cb, ci);
+                    Node hijoInsertado = CrearHijo(actual, i, j + 1, actual.getCosteT() + ci, "Insertado " + Y.charAt(j), n, m, cb, ci);
                     cotaGlobal = ProcesarHijo(hijoInsertado, n, m, monticulo, cotaGlobal, mejorSolucion);
                 }
                 // Sustitución
@@ -71,24 +71,27 @@ public class App {
                     Node hijoSust = CrearHijo(actual, i + 1, j + 1, actual.getCosteT() + cs, "Sustitución", n, m, cb, ci);
                     cotaGlobal = ProcesarHijo(hijoSust, n, m, monticulo, cotaGlobal, mejorSolucion);
                 }
-                // Intercambio TODO
-                // Hay que retocar el bucle ya que los límites no siempre son buenos (ahora mismo funciona si se quiere hacer un salto de las adyacentes y las siguientes)
+                // Intercambio
                 /*
-                for(int count = 0; count < Integer.max(n, m); count++){
-                    if ((i + (count + 1) < n && j + (count + 1) < m && X.charAt(i) == Y.charAt(j + (count + 1)) && X.charAt(i + (count + 1)) == Y.charAt(j))){
-                        Node hijoIntercambio = CrearHijo(actual, i + (count + 2), j + (count + 2), actual.getCosteT() + cc, "Intercambio "+count, n, m, cb, ci);
-                        cotaGlobal = ProcesarHijo(hijoIntercambio, n, m, monticulo, cotaGlobal, mejorSolucion);
-                    }
-                }
-                
+                En la sesión de práctica del 11 de noviembre se especificó que solo con las adyacentes por lo que queda como TODO si da tiempo
+                si no da tiempo al solo tratar las adyacentes a la letra no se puede llegar a la solución del enunciado
+                 */
                 if ((i + 1 < n && j + 1 < m && X.charAt(i) == Y.charAt(j + 1) && X.charAt(i + 1) == Y.charAt(j))){
-                    Node hijoIntercambio = CrearHijo(actual, i + 2, j + 2, actual.getCosteT() + cc, "Intercambio", n, m, cb, ci);
+                    Node hijoIntercambio = CrearHijo(actual, i + 2, j + 2, actual.getCosteT() + cc, "Intercambio adyacentes "+ X.charAt(i) + " por " + Y.charAt(j) , n, m, cb, ci);
                     cotaGlobal = ProcesarHijo(hijoIntercambio, n, m, monticulo, cotaGlobal, mejorSolucion);
                 } 
                 if(i + 2 < n && j + 2 < m && X.charAt(i) == Y.charAt(j + 2) && X.charAt(i + 2) == Y.charAt(j)){
-                    Node hijoIntercambio = CrearHijo(actual, i + 3, j + 3, actual.getCosteT(), "Intercambio +3", n, m, cb, ci);
+                    Node hijoIntercambio = CrearHijo(actual, i + 3, j + 3, actual.getCosteT(), "Intercambio adyacentes + 1: "+ X.charAt(i) + " por " + Y.charAt(j), n, m, cb, ci);
                     cotaGlobal = ProcesarHijo(hijoIntercambio, n, m, monticulo, cotaGlobal, mejorSolucion);
-                }*/
+                }
+                /* // Hay que retocar el bucle ya que los límites no siempre son buenos (ahora mismo funciona si se quiere hacer un salto de las adyacentes y las siguientes)
+                for(int count = 0; count < Integer.max(n, m); count++){
+                    if ((i + (count + 1) < n && j + (count + 1) < m && X.charAt(i) == Y.charAt(j + (count + 1)) && X.charAt(i + (count + 1)) == Y.charAt(j))){
+                        Node hijoIntercambio = CrearHijo(actual, i + (count + 2), j + (count + 2), actual.getCosteT() + cc, "Intercambio bucle "+count, n, m, cb, ci);
+                        cotaGlobal = ProcesarHijo(hijoIntercambio, n, m, monticulo, cotaGlobal, mejorSolucion);
+                    }
+                } */
+                
 
 
             }
